@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
-const App = () => {
+export default () => {
   return (
     <View>
-      <Text>Test</Text>
+      <Text>aasaasasasasdas</Text>
     </View>
   );
 };
@@ -14,5 +14,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-export default App;
