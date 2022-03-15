@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from 'react-native';
 export default () => {
   return (
     <View>
-      <Text>aasaasasasasdas</Text>
+      <Text>aas ss sa=</Text>
     </View>
   );
 };

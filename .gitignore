@@ -1,3 +1,5 @@
+*.zip
+
 # OSX
 #
 .DS_Store
@@ -28,7 +30,7 @@ build/
 .gradle
 local.properties
 *.iml
-*.hprof
+android/app/src/main/assets/index.android.bundle
 
 # node.js
 #
@@ -49,12 +51,26 @@ buck-out/
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/
 
-*/fastlane/report.xml
-*/fastlane/Preview.html
-*/fastlane/screenshots
+/fastlane/report.xml
+/fastlane/Preview.html
+/fastlane/screenshots
+/fastlane/README.md
 
 # Bundle artifact
 *.jsbundle
 
 # CocoaPods
 /ios/Pods/
+
+# Ruby
+/vendor/
+
+# ENV
+/.env
+.key/
+
+# Jest
+coverage/
+reports/
+
+builds/
