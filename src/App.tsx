@@ -1,8 +1,16 @@
 import './localizable';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { StyleSheet, StatusBar, View, Platform, UIManager } from 'react-native';
+import {
+  StyleSheet,
+  StatusBar,
+  View,
+  Platform,
+  UIManager,
+  LogBox,
+} from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { SplashScreen } from '../packages/splash-screen';
 
 import { Colors } from './utils/colors';
 import RootStore from './stores/RootStore';
@@ -22,9 +30,20 @@ if (
 const App = observer(() => {
   const {
     stores: {
+      appStore: { appDidMount },
       navigationStore: { setCurrentRouteName },
     },
   } = useStores();
+  useEffect(() => {
+    componentDidMount();
+    return () => console.log('to do all actions on app unmount');
+  }, []);
+
+  const componentDidMount = async () => {
+    LogBox.ignoreAllLogs();
+    await appDidMount();
+    SplashScreen.hide();
+  };
 
   return (
     <View style={styles.container}>

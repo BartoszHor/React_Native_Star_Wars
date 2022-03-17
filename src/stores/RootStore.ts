@@ -2,11 +2,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create, IHydrateResult } from 'mobx-persist';
 
-import { AlertStore, NavigationStore } from '.';
-
-const pullState = create({ storage: AsyncStorage });
+import { AlertStore, NavigationStore, AppStore } from '.';
+const hydrateStores = create({ storage: AsyncStorage });
 
 export interface Stores {
+  appStore: AppStore;
   alertStore: AlertStore;
   navigationStore: NavigationStore;
 }
@@ -28,6 +28,7 @@ function persistDataStores(stores: Stores) {
 }
 
 const stores = (store: RootStore): Stores => ({
+  appStore: new AppStore(store),
   alertStore: new AlertStore(store),
   navigationStore: new NavigationStore(store),
 });
@@ -38,7 +39,7 @@ class RootStore {
   hydrateStores = () => {
     return Promise.all(
       persistDataStores(this.stores).map((store) =>
-        store.hydrateStore(pullState),
+        store.hydrateStore(hydrateStores),
       ),
     );
   };
