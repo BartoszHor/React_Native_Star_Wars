@@ -10,11 +10,11 @@ import {
   LogBox,
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { SplashScreen } from '../packages/splash-screen';
 
 import { Colors } from './utils/colors';
 import RootStore from './stores/RootStore';
 import Router from './router/Router';
+import SplashScreen from './containers/landing/Landing';
 
 const rootStore = new RootStore();
 const storesContext = React.createContext(rootStore);
@@ -42,12 +42,12 @@ const App = observer(() => {
   const componentDidMount = async () => {
     LogBox.ignoreAllLogs();
     await appDidMount();
-    SplashScreen.hide();
   };
 
   return (
     <View style={styles.container}>
       <Router onRouteChange={setCurrentRouteName} />
+      <SplashScreen />
     </View>
   );
 });
