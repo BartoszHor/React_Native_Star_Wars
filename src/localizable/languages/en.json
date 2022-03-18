@@ -2,5 +2,10 @@
   "appName": "star_wars",
   "splahScreen": {
     "welcome": "Welcome to Star Wars World"
+  },
+  "navigationButtons": {
+    "characters": "Characters",
+    "filters": "Filters",
+    "contact": "Contact Form"
   }
 }

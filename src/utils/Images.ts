@@ -1,11 +1,11 @@
 /* eslint-disable global-require */
 /* eslint-disable import/no-unresolved */
 
-const images = {
+const Images = {
   splash: {
-    splashBackground: require('../images/landing/splashBackground.png'),
+    background: require('../images/landing/splashBackground.png'),
     logo: require('../images/landing/starWarsLogo.png'),
   },
 };
 
-export default images;
+export default Images;

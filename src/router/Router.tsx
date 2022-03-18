@@ -9,9 +9,8 @@ import {
   TransitionPresets,
 } from '@react-navigation/stack';
 import { observer } from 'mobx-react';
-import { View, ImageBackground } from 'react-native';
 import { navigationRef } from '../stores/NavigationStore';
-import Images from '../utils/Images';
+import Characters from '../containers/iosModalRouter/characters/Characters';
 
 const getCurrentRouteName = (
   state?: NavigationState | PartialState<NavigationState>,
@@ -26,16 +25,6 @@ const getCurrentRouteName = (
 
 const Stack = createStackNavigator();
 
-const Characters = () => (
-  <View style={{ backgroundColor: 'black', flex: 1 }}>
-    <ImageBackground
-      source={Images.splash.splashBackground}
-      resizeMode="cover"
-      style={{ flex: 1 }}
-    />
-  </View>
-);
-
 const IosModalScreens = () => (
   <Stack.Navigator
     initialRouteName="Characters"
@@ -46,6 +35,7 @@ const IosModalScreens = () => (
       cardOverlayEnabled: true,
       ...TransitionPresets.ModalPresentationIOS,
     }}>
+    {/* <Stack.Screen name="MainView" component={MainView} /> */}
     <Stack.Screen name="Characters" component={Characters} />
   </Stack.Navigator>
 );

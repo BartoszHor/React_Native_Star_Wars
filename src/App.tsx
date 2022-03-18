@@ -13,7 +13,7 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from './utils/colors';
 import RootStore from './stores/RootStore';
 import Router from './router/Router';
-import SplashScreen from './containers/landing/Landing';
+import SplashScreen from './containers/splash/SplashScreen';
 
 const rootStore = new RootStore();
 const storesContext = React.createContext(rootStore);

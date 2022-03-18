@@ -1,10 +1,10 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { View, ImageBackground, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { useStores } from '../../App';
 import Images from '../../utils/Images';
-import LandingStyles from './styles/LandingStyles';
+import SplashScreenStyles from './styles/SplashScreenStyles';
 
 export default observer(() => {
   const {
@@ -17,20 +17,15 @@ export default observer(() => {
   return splashScreenStore.reactSplashShown ? (
     <Animatable.View
       useNativeDriver
-      style={LandingStyles.container}
+      style={SplashScreenStyles.container}
       animation={splashScreenStore.zoomOut}
       delay={3000}
       duration={5000}
       onAnimationEnd={hideSplash}>
-      <View style={LandingStyles.contentContainer}>
-        <ImageBackground
-          source={Images.splash.splashBackground}
-          resizeMode="cover"
-          style={LandingStyles.container}
-        />
+      <View style={SplashScreenStyles.contentContainer}>
         <Image
           source={Images.splash.logo}
-          style={LandingStyles.logo}
+          style={SplashScreenStyles.logo}
           resizeMode="contain"
         />
       </View>
