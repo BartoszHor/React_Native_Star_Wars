@@ -11,7 +11,7 @@ export default class SplashScreenStore extends BaseStore {
       scale: 1,
     },
     0.5: {
-      opacity: 1,
+      opacity: 0.5,
       scale: 0.5,
     },
     1: {
@@ -20,7 +20,7 @@ export default class SplashScreenStore extends BaseStore {
     },
   };
 
-  fadeOutSplash = flow(function* (this: SplashScreenStore) {
+  hideSplash = flow(function* (this: SplashScreenStore) {
     this.reactSplashShown = false;
   }).bind(this);
 }

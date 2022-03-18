@@ -4,6 +4,7 @@
 const images = {
   splash: {
     splashBackground: require('../images/landing/splashBackground.png'),
+    logo: require('../images/landing/starWarsLogo.png'),
   },
 };
 

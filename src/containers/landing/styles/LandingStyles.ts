@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-
 import { Colors } from '../../../utils/colors';
+
 export default StyleSheet.create({
   container: {
     top: 0,
@@ -20,5 +20,10 @@ export default StyleSheet.create({
     fontWeight: '800',
     textAlign: 'center',
     paddingHorizontal: 30,
+  },
+  logo: {
+    width: 250,
+    height: 200,
+    marginBottom: 200,
   },
 });

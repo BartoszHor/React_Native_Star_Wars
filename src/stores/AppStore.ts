@@ -3,7 +3,6 @@ import { flow, observable } from 'mobx';
 import { persist } from 'mobx-persist';
 import { BaseStore } from '.';
 import { PersistDataStore } from './RootStore';
-
 export default class AppStore extends BaseStore implements PersistDataStore {
   hydrateStore = (hydrate: Function) => hydrate('appStore', this);
 

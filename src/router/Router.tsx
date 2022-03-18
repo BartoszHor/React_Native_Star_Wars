@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   NavigationContainer,
   NavigationState,
@@ -8,10 +9,9 @@ import {
   TransitionPresets,
 } from '@react-navigation/stack';
 import { observer } from 'mobx-react';
-import { View, Text } from 'react-native';
-import React from 'react';
-
+import { View, ImageBackground } from 'react-native';
 import { navigationRef } from '../stores/NavigationStore';
+import Images from '../utils/Images';
 
 const getCurrentRouteName = (
   state?: NavigationState | PartialState<NavigationState>,
@@ -27,8 +27,12 @@ const getCurrentRouteName = (
 const Stack = createStackNavigator();
 
 const Characters = () => (
-  <View>
-    <Text>testy testy testy </Text>
+  <View style={{ backgroundColor: 'black', flex: 1 }}>
+    <ImageBackground
+      source={Images.splash.splashBackground}
+      resizeMode="cover"
+      style={{ flex: 1 }}
+    />
   </View>
 );
 

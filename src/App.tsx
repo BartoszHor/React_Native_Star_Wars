@@ -10,7 +10,6 @@ import {
   LogBox,
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-
 import { Colors } from './utils/colors';
 import RootStore from './stores/RootStore';
 import Router from './router/Router';
