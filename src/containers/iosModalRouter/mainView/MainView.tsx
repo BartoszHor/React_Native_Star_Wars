@@ -16,7 +16,7 @@ const renderButton = ({ text, handlePress, index }: NavigationButton) => {
 
 export default observer(() => {
   const {
-    stores: { navigationStore, splashScreenStore },
+    stores: { navigationStore, splashScreenStore, appStore },
   } = useStores();
   return (
     <View style={MainViewStyles.container}>
@@ -24,7 +24,7 @@ export default observer(() => {
         source={Images.splash.background}
         resizeMode="cover"
         style={MainViewStyles.background}>
-        {!splashScreenStore.reactSplashShown && (
+        {!splashScreenStore.reactSplashShown && !appStore.loading && (
           <View>{navigationStore.navigationButtons.map(renderButton)}</View>
         )}
       </ImageBackground>

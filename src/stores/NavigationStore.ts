@@ -42,10 +42,18 @@ export default class NavigationStore extends BaseStore {
 
   @computed
   get navigationButtons(): Array<NavigationButton> {
+    const {
+      appStore: { showLoading, hideLoading },
+      charactersStore: { getCharacters },
+      charactersStore,
+    } = this.rootStore.stores;
     return [
       {
         text: Localizable.t('navigationButtons.characters'),
-        handlePress: () => {
+        handlePress: async () => {
+          showLoading();
+          await getCharacters(charactersStore.initialUrl);
+          hideLoading();
           this.navigate(Localizable.t('navigationButtons.characters'));
         },
         index: 0,

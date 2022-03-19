@@ -15,8 +15,8 @@ export default observer(({ text, handlePress, index }: NavigationButton) => {
       <Animatable.View
         style={ButtonStyles.innerContainer}
         useNativeDriver
-        delay={index * 500}
-        duration={1000}
+        delay={index * 200}
+        duration={600}
         animation={navigationStore.zoomInNavigationButtons}>
         <Text style={ButtonStyles.titleText}>{text}</Text>
       </Animatable.View>

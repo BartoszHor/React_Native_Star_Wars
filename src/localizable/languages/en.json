@@ -7,5 +7,9 @@
     "characters": "Characters",
     "favorites": "Favorites",
     "contact": "Contact Form"
+  },
+  "charactersList": {
+    "name": "Name: ",
+    "height": "Height: "
   }
 }
