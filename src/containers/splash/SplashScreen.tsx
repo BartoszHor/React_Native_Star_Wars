@@ -13,8 +13,7 @@ export default observer(() => {
       splashScreenStore: { hideSplash },
     },
   } = useStores();
-
-  return splashScreenStore.reactSplashShown ? (
+  return (
     <Animatable.View
       useNativeDriver
       style={SplashScreenStyles.container}
@@ -30,5 +29,5 @@ export default observer(() => {
         />
       </View>
     </Animatable.View>
-  ) : null;
+  );
 });

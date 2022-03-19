@@ -3,7 +3,7 @@ import { Colors } from '../../../../utils/colors';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.black,
     flex: 1,
   },
   image: {

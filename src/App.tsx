@@ -31,6 +31,7 @@ const App = observer(() => {
     stores: {
       appStore: { appDidMount },
       navigationStore: { setCurrentRouteName },
+      splashScreenStore,
     },
   } = useStores();
   useEffect(() => {
@@ -46,7 +47,7 @@ const App = observer(() => {
   return (
     <View style={styles.container}>
       <Router onRouteChange={setCurrentRouteName} />
-      <SplashScreen />
+      {splashScreenStore.reactSplashShown && <SplashScreen />}
     </View>
   );
 });
@@ -71,9 +72,9 @@ export default () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.black,
   },
   safeAreaView: {
     flex: 1,
+    backgroundColor: Colors.black,
   },
 });
