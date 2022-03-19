@@ -3,7 +3,7 @@ import { getEnv } from '../../packages/config';
 import { isDev } from '../../packages/is-dev';
 
 const instance = axios.create({
-  baseURL: getEnv('API_URL'),
+  // baseURL: getEnv('https://swapi.dev/api'),
   timeout: 30000,
 });
 
@@ -24,6 +24,8 @@ if (isDev) {
   );
 }
 
-export class RestClient {
+class RestClient {
   fetchCharacters = (url: string) => instance.get(url);
 }
+
+export default new RestClient();
