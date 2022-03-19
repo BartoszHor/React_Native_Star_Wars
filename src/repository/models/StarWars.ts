@@ -4,9 +4,6 @@ export interface NavigationButton {
   index: number;
 }
 export interface CharacterRow {
-  item: {
-    name: string;
-    height: string;
-  };
-  index: number;
+  name: string;
+  height: string;
 }

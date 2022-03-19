@@ -45,4 +45,12 @@ export default class CharactersStore extends BaseStore {
   get shouldFetachMoreCharacters(): boolean {
     return this.characters.length < this.totalCharactersCount;
   }
+
+  @computed
+  get allCharactersFetched(): boolean {
+    return (
+      this.characters.length > 0 &&
+      this.characters.length === this.totalCharactersCount
+    );
+  }
 }

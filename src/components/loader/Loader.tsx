@@ -5,12 +5,12 @@ import { useStores } from '../../App';
 import { Colors } from '../../utils/colors';
 import LoaderStyles from './styles/LoaderStyles';
 
-export default observer(() => {
+export default observer(({ listView, style: listStyle }) => {
   const {
     stores: { appStore },
   } = useStores();
-  return appStore.loading ? (
-    <View style={LoaderStyles.container}>
+  return appStore.loading || listView ? (
+    <View style={listView ? listStyle : LoaderStyles.container}>
       <ActivityIndicator size="large" color={Colors.white} />
     </View>
   ) : null;

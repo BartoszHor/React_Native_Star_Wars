@@ -1,7 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { View, ImageBackground } from 'react-native';
-import * as Animatable from 'react-native-animatable';
 import Images from '../../../utils/Images';
 import MainViewStyles from '../mainView/styles/MainViewStyles';
 import { useStores } from '../../../App';

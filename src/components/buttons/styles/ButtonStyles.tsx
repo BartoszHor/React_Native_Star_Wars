@@ -6,7 +6,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     backgroundColor: 'transparent',
-    borderColor: 'yellow',
+    borderColor: Colors.yellow,
     borderWidth: 2,
     marginVertical: 20,
     marginHorizontal: 60,

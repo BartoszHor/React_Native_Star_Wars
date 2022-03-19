@@ -4,7 +4,7 @@
 
 1. Create `.env` file in project root, paste following envs:
    ```
-   REACT_APP_API_URL=
+   API_URL=https://swapi.dev/api/people
    ```
 2. Run
    - iOS: `$ yarn && cd ios && pod install && cd .. && yarn ios`

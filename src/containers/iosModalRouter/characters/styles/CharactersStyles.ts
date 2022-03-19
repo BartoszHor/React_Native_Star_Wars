@@ -9,6 +9,8 @@ export default StyleSheet.create({
   charactersListContainer: {
     backgroundColor: 'transparent',
     marginBottom: 20,
+    borderTopColor: Colors.white,
+    borderTopWidth: 0.4,
   },
   background: {
     flex: 1,
@@ -38,5 +40,14 @@ export default StyleSheet.create({
     letterSpacing: 2,
     paddingLeft: 5,
     paddingVertical: 10,
+  },
+  listFooterLoader: {
+    marginBottom: 20,
+  },
+  listFooterText: {
+    color: Colors.yellow,
+    marginBottom: 20,
+    alignSelf: 'center',
+    letterSpacing: 2,
   },
 });
