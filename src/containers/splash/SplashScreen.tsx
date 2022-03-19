@@ -17,9 +17,9 @@ export default observer(() => {
     <Animatable.View
       useNativeDriver
       style={SplashScreenStyles.container}
-      animation={splashScreenStore.zoomOut}
-      delay={3000}
-      duration={5000}
+      animation={splashScreenStore.zoomOutSplasScreenLogo}
+      delay={2000}
+      duration={4000}
       onAnimationEnd={hideSplash}>
       <View style={SplashScreenStyles.contentContainer}>
         <Image

@@ -5,7 +5,7 @@
   },
   "navigationButtons": {
     "characters": "Characters",
-    "filters": "Filters",
+    "favorites": "Favorites",
     "contact": "Contact Form"
   }
 }

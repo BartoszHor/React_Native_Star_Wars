@@ -5,7 +5,7 @@ export default class SplashScreenStore extends BaseStore {
   @observable
   reactSplashShown = true;
 
-  zoomOut = {
+  zoomOutSplasScreenLogo = {
     0: {
       opacity: 1,
       scale: 1,

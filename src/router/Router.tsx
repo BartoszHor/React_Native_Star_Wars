@@ -11,6 +11,7 @@ import {
 import { observer } from 'mobx-react';
 import { navigationRef } from '../stores/NavigationStore';
 import Characters from '../containers/iosModalRouter/characters/Characters';
+import MainView from '../containers/iosModalRouter/mainView/MainView';
 
 const getCurrentRouteName = (
   state?: NavigationState | PartialState<NavigationState>,
@@ -27,7 +28,7 @@ const Stack = createStackNavigator();
 
 const IosModalScreens = () => (
   <Stack.Navigator
-    initialRouteName="Characters"
+    initialRouteName="MainView"
     screenOptions={{
       presentation: 'modal',
       headerShown: false,
@@ -35,8 +36,10 @@ const IosModalScreens = () => (
       cardOverlayEnabled: true,
       ...TransitionPresets.ModalPresentationIOS,
     }}>
-    {/* <Stack.Screen name="MainView" component={MainView} /> */}
+    <Stack.Screen name="MainView" component={MainView} />
     <Stack.Screen name="Characters" component={Characters} />
+    {/* <Stack.Screen name="Favorites" component={Favorites} />
+    <Stack.Screen name="ContactForm" component={ContactForm} /> */}
   </Stack.Navigator>
 );
 

@@ -12,6 +12,21 @@ export default class NavigationStore extends BaseStore {
   @observable
   currentRouteName = 'MainView';
 
+  zoomInNavigationButtons = {
+    0: {
+      opacity: 0,
+      scale: 0,
+    },
+    0.5: {
+      opacity: 0.5,
+      scale: 0.5,
+    },
+    1: {
+      opacity: 1,
+      scale: 1,
+    },
+  };
+
   @action
   setCurrentRouteName = (route: string) => {
     this.previousRouteName = this.currentRouteName;
@@ -33,12 +48,14 @@ export default class NavigationStore extends BaseStore {
         handlePress: () => {
           this.navigate(Localizable.t('navigationButtons.characters'));
         },
+        index: 0,
       },
       {
-        text: Localizable.t('navigationButtons.filters'),
+        text: Localizable.t('navigationButtons.favorites'),
         handlePress: () => {
-          this.navigate(Localizable.t('navigationButtons.filters'));
+          this.navigate(Localizable.t('navigationButtons.favorites'));
         },
+        index: 1,
       },
       {
         text: Localizable.t('navigationButtons.contact'),
@@ -47,6 +64,7 @@ export default class NavigationStore extends BaseStore {
             Localizable.t('navigationButtons.contact').replace(/ /g, ''),
           );
         },
+        index: 2,
       },
     ];
   }
