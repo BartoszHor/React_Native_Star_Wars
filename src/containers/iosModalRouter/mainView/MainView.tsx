@@ -4,10 +4,13 @@ import { View, ImageBackground } from 'react-native';
 import Images from '../../../utils/Images';
 import MainViewStyles from '../mainView/styles/MainViewStyles';
 import { useStores } from '../../../App';
-import { NavigationButton } from '../../../repository/models';
+import { NavigationButtonStore } from '../../../repository/models';
 import Button from '../../../components/buttons/Button';
 
-const renderButton = ({ text, handlePress, index }: NavigationButton) => {
+const renderButton = (
+  { text, handlePress }: NavigationButtonStore,
+  index: number,
+) => {
   return (
     <Button text={text} handlePress={handlePress} index={index} key={index} />
   );
@@ -17,6 +20,7 @@ export default observer(() => {
   const {
     stores: { navigationStore, splashScreenStore, appStore },
   } = useStores();
+
   return (
     <View style={MainViewStyles.container}>
       <ImageBackground

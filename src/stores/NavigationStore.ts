@@ -2,7 +2,7 @@ import { observable, action, computed } from 'mobx';
 import { createRef, RefObject } from 'react';
 import { BaseStore } from '.';
 import { Localizable } from '../../packages/i18n';
-import { NavigationButton } from '../repository/models';
+import { NavigationButtonStore } from '../repository/models';
 
 export const navigationRef: RefObject<any> = createRef();
 export default class NavigationStore extends BaseStore {
@@ -41,7 +41,7 @@ export default class NavigationStore extends BaseStore {
   };
 
   @computed
-  get navigationButtons(): Array<NavigationButton> {
+  get navigationButtons(): Array<NavigationButtonStore> {
     const {
       appStore: { showLoading, hideLoading },
       charactersStore: { getCharacters },
@@ -56,14 +56,12 @@ export default class NavigationStore extends BaseStore {
           hideLoading();
           this.navigate(Localizable.t('navigationButtons.characters'));
         },
-        index: 0,
       },
       {
         text: Localizable.t('navigationButtons.favorites'),
         handlePress: () => {
           this.navigate(Localizable.t('navigationButtons.favorites'));
         },
-        index: 1,
       },
       {
         text: Localizable.t('navigationButtons.contact'),
@@ -72,7 +70,6 @@ export default class NavigationStore extends BaseStore {
             Localizable.t('navigationButtons.contact').replace(/ /g, ''),
           );
         },
-        index: 2,
       },
     ];
   }

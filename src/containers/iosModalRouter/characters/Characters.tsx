@@ -8,8 +8,8 @@ import CharacterRowComponent from './CharacterRow';
 import CharactersListFooter from './CharactersListFooter';
 import { CharacterRow } from '../../../repository/models';
 
-const renderItem = ({ item: { name, height } }: { item: CharacterRow }) => (
-  <CharacterRowComponent name={name} height={height} />
+const renderItem = ({ item, index }: { item: any; index: number }) => (
+  <CharacterRowComponent item={item} index={index} />
 );
 
 export default observer(() => {

@@ -29,6 +29,7 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderRadius: 20,
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   characterName: {
     shadowColor: Colors.white,

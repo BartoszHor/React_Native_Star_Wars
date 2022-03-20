@@ -11,6 +11,8 @@
   "charactersList": {
     "name": "Name: ",
     "height": "Height: ",
-    ":)": "May the force be with you!"
+    ":)": "May the force be with you!",
+    "details": "Details",
+    "addToFavorites": "Favorites +"
   }
 }
