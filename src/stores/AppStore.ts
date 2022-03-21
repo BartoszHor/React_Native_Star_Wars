@@ -3,10 +3,20 @@ import { flow, observable, action } from 'mobx';
 import { BaseStore } from '.';
 export default class AppStore extends BaseStore {
   @observable
-  storesHydrated = false;
+  loading: boolean | null = null;
 
   @observable
-  loading: boolean | null = null;
+  modalVisable = false;
+
+  @action
+  setModalVisable = () => {
+    this.modalVisable = true;
+  };
+
+  @action
+  setModalInvisable = () => {
+    this.modalVisable = false;
+  };
 
   @action
   showLoading = () => {
@@ -21,6 +31,5 @@ export default class AppStore extends BaseStore {
   appDidMount = flow(function* (this: AppStore) {
     const { hydrateStores } = this.rootStore;
     yield hydrateStores();
-    this.storesHydrated = true;
   }).bind(this);
 }

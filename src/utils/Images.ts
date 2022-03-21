@@ -9,6 +9,9 @@ const Images = {
   charactersList: {
     arrowDown: require('../images/landing/arrowDown.png'),
   },
+  close: {
+    arrowDown: require('../images/landing/arrowDown.png'),
+  },
 };
 
 export default Images;

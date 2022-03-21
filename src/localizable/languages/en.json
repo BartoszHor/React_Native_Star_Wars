@@ -11,8 +11,11 @@
   "charactersList": {
     "name": "Name: ",
     "height": "Height: ",
+    "gender": "Gender: ",
+    "mass": "Mass: ",
     ":)": "May the force be with you!",
     "details": "Details",
+    "planetInfo": "Planet Info",
     "addToFavorites": "Favorites +",
     "added": "Added to favs",
     "remove": "Remove"

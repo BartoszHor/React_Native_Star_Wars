@@ -17,17 +17,21 @@ export default class CharactersStore extends BaseStore {
   characters: Array<any> = [];
 
   @observable
+  character: any | null = null;
+
+  @observable
   totalCharactersCount: number = 0;
+
+  @action
+  setCharacter = (character: any) => {
+    this.character = character;
+  };
 
   @action
   resetCharactersStore = () => {
     this.nextCharactersUrl = '';
     this.characters = [];
     this.totalCharactersCount = 0;
-  };
-
-  showDetails = (index: number) => {
-    console.log('looog index', index);
   };
 
   getCharacters = flow(function* (this: CharactersStore, url: string) {
@@ -61,16 +65,20 @@ export default class CharactersStore extends BaseStore {
   }
 
   @computed
-  get characterButtons(): Array<any> {
+  get characterRowButtons(): Array<any> {
     const {
       favoritesStore: { addToFavorites, removeFromFavorites },
       favoritesStore,
       alertStore: { showDropdownAlert },
+      appStore: { setModalVisable },
     } = this.rootStore.stores;
     return [
       {
         text: Localizable.t('charactersList.details'),
-        handlePress: (index: number) => this.showDetails(index),
+        handlePress: (index: number) => {
+          this.setCharacter(this.characters[index]);
+          setModalVisable();
+        },
         characterButton: true,
       },
       {
@@ -96,11 +104,37 @@ export default class CharactersStore extends BaseStore {
       },
     ];
   }
+
+  @computed
+  get characterDetailsButtons(): Array<any> {
+    const {
+      favoritesStore: { addToFavorites },
+      alertStore: { showDropdownAlert },
+    } = this.rootStore.stores;
+    return [
+      {
+        text: Localizable.t('charactersList.planetInfo'),
+        handlePress: () => {
+          console.log('looog planet');
+        },
+        characterButton: true,
+      },
+      {
+        text: Localizable.t('charactersList.addToFavorites'),
+        handlePress: (index: number) => {
+          addToFavorites(index);
+          showDropdownAlert('Added character to favorites!');
+        },
+        characterButton: true,
+      },
+    ];
+  }
+
   @computed
   get characterButtonsFiltered(): Array<any> {
     const { navigationStore } = this.rootStore.stores;
     return navigationStore.currentRouteName === 'Characters'
-      ? this.characterButtons.splice(0, 2)
-      : this.characterButtons.slice(-1);
+      ? this.characterRowButtons.splice(0, 2)
+      : this.characterRowButtons.slice(-1);
   }
 }

@@ -12,7 +12,6 @@ import CharactersListStyles from '../characters/styles/CharactersStyles';
 import { useStores } from '../../../App';
 import CharacterRowComponent from './CharacterRow';
 import CharactersListFooter from './CharactersListFooter';
-import { CharacterRow } from '../../../repository/models';
 
 const renderItem = ({ item, index }: { item: any; index: number }) => (
   <CharacterRowComponent item={item} index={index} />

@@ -1,14 +1,7 @@
 import './localizable';
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
-import {
-  StyleSheet,
-  StatusBar,
-  View,
-  Platform,
-  UIManager,
-  LogBox,
-} from 'react-native';
+import { StyleSheet, View, Platform, UIManager, LogBox } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Colors } from './utils/colors';
 import RootStore from './stores/RootStore';
@@ -16,6 +9,7 @@ import Router from './router/Router';
 import SplashScreen from './containers/splash/SplashScreen';
 import Loader from './components/loader/Loader';
 import Alerts from './components/alerts/Alerts';
+import Modals from './components/modals/Modals';
 
 const rootStore = new RootStore();
 const storesContext = React.createContext(rootStore);
@@ -34,6 +28,7 @@ const App = observer(() => {
       appStore: { appDidMount },
       navigationStore: { setCurrentRouteName },
       splashScreenStore,
+      layoutStore: { onAppLayout },
     },
   } = useStores();
   useEffect(() => {
@@ -47,8 +42,9 @@ const App = observer(() => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onLayout={onAppLayout}>
       <Router onRouteChange={setCurrentRouteName} />
+      <Modals />
       <Loader />
       <Alerts />
       {splashScreenStore.reactSplashShown && <SplashScreen />}
@@ -61,11 +57,6 @@ export default () => {
     <SafeAreaProvider>
       <View style={styles.container}>
         <SafeAreaView style={styles.safeAreaView}>
-          <StatusBar
-            barStyle="light-content"
-            translucent
-            backgroundColor="transparent"
-          />
           <App />
         </SafeAreaView>
       </View>
