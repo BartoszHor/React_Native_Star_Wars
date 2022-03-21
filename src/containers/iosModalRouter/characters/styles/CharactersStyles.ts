@@ -52,4 +52,8 @@ export default StyleSheet.create({
     alignSelf: 'center',
     letterSpacing: 2,
   },
+  buttonsContainer: {
+    justifyContent: 'center',
+    flex: 1,
+  },
 });

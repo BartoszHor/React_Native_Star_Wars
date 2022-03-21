@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { Localizable } from '../../../../packages/i18n';
 import { CharacterButton } from '../../../repository/models';
 import { observer } from 'mobx-react';
@@ -39,7 +39,7 @@ export default observer(({ item: character, index: characterIndex }: Props) => {
     ({ name }) => name === character.name,
   );
   return (
-    <TouchableOpacity style={CharactersListStyles.characterContainer}>
+    <View style={CharactersListStyles.characterContainer}>
       <View style={CharactersListStyles.characterInnerContainer}>
         <View>
           <Text style={CharactersListStyles.characterName}>
@@ -52,13 +52,13 @@ export default observer(({ item: character, index: characterIndex }: Props) => {
           </Text>
         </View>
         <View>
-          <View>
-            {charactersStore.characterButtons.map((button, index) =>
+          <View style={CharactersListStyles.buttonsContainer}>
+            {charactersStore.characterButtonsFiltered.map((button, index) =>
               renderButton(button, characterIndex, index, characterInFavorites),
             )}
           </View>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 });

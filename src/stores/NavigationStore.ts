@@ -3,6 +3,7 @@ import { createRef, RefObject } from 'react';
 import { BaseStore } from '.';
 import { Localizable } from '../../packages/i18n';
 import { NavigationButtonStore } from '../repository/models';
+import { CommonActions } from '@react-navigation/native';
 
 export const navigationRef: RefObject<any> = createRef();
 export default class NavigationStore extends BaseStore {
@@ -40,6 +41,16 @@ export default class NavigationStore extends BaseStore {
     navigationRef.current.navigate(routeName, params);
   };
 
+  goBack = (key?: string): void => {
+    if (!navigationRef.current) {
+      return;
+    }
+    navigationRef.current?.dispatch({
+      ...CommonActions.goBack(),
+      source: key,
+    });
+  };
+
   @computed
   get navigationButtons(): Array<NavigationButtonStore> {
     const {
@@ -54,21 +65,19 @@ export default class NavigationStore extends BaseStore {
           showLoading();
           await getCharacters(charactersStore.initialUrl);
           hideLoading();
-          this.navigate(Localizable.t('navigationButtons.characters'));
+          this.navigate('Characters', { screen: 'Characters' });
         },
       },
       {
         text: Localizable.t('navigationButtons.favorites'),
         handlePress: () => {
-          this.navigate(Localizable.t('navigationButtons.favorites'));
+          this.navigate('Favorites', { screen: 'Favorites' });
         },
       },
       {
         text: Localizable.t('navigationButtons.contact'),
         handlePress: () => {
-          this.navigate(
-            Localizable.t('navigationButtons.contact').replace(/ /g, ''),
-          );
+          this.navigate('ContactForm');
         },
       },
     ];

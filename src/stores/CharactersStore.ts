@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 import { action, computed, flow, observable } from 'mobx';
+import { LayoutAnimation } from 'react-native';
 import Config from 'react-native-config';
 import { BaseStore } from '.';
 import { Localizable } from '../../packages/i18n';
@@ -62,7 +63,8 @@ export default class CharactersStore extends BaseStore {
   @computed
   get characterButtons(): Array<any> {
     const {
-      favoritesStore: { addToFavorites },
+      favoritesStore: { addToFavorites, removeFromFavorites },
+      favoritesStore,
       alertStore: { showDropdownAlert },
     } = this.rootStore.stores;
     return [
@@ -79,6 +81,26 @@ export default class CharactersStore extends BaseStore {
         },
         characterButton: true,
       },
+      {
+        text: Localizable.t('charactersList.remove'),
+        handlePress: (index: number) => {
+          if (favoritesStore.favoriteCharacters.length !== 1) {
+            LayoutAnimation.configureNext(
+              LayoutAnimation.Presets.easeInEaseOut,
+            );
+          }
+          removeFromFavorites(index);
+          showDropdownAlert('Removed character from favorites!');
+        },
+        characterButton: true,
+      },
     ];
+  }
+  @computed
+  get characterButtonsFiltered(): Array<any> {
+    const { navigationStore } = this.rootStore.stores;
+    return navigationStore.currentRouteName === 'Characters'
+      ? this.characterButtons.splice(0, 2)
+      : this.characterButtons.slice(-1);
   }
 }

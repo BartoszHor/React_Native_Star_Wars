@@ -22,6 +22,17 @@ export default class FavoritesStore
     }
   };
 
+  @action
+  removeFromFavorites = (index: number) => {
+    const {
+      navigationStore: { goBack },
+    } = this.rootStore.stores;
+    this.favoriteCharacters.splice(index, 1);
+    if (!this.favoriteCharacters.length) {
+      goBack();
+    }
+  };
+
   @computed
   get favoriteCharactersLength(): number {
     return this.favoriteCharacters.length;

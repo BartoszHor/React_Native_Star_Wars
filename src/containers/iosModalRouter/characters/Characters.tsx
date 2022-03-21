@@ -1,6 +1,12 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
-import { View, ImageBackground, FlatList, Image } from 'react-native';
+import {
+  View,
+  ImageBackground,
+  FlatList,
+  Image,
+  ScrollView,
+} from 'react-native';
 import Images from '../../../utils/Images';
 import CharactersListStyles from '../characters/styles/CharactersStyles';
 import { useStores } from '../../../App';
@@ -12,44 +18,65 @@ const renderItem = ({ item, index }: { item: any; index: number }) => (
   <CharacterRowComponent item={item} index={index} />
 );
 
-export default observer(() => {
-  const {
-    stores: {
-      charactersStore,
-      charactersStore: { getCharacters, resetCharactersStore },
+export default observer(
+  ({
+    route: {
+      params: { screen },
     },
-  } = useStores();
-  useEffect(() => {
-    return () => {
-      resetCharactersStore();
-    };
-  }, []);
-
-  return (
-    <View style={CharactersListStyles.container}>
-      <ImageBackground
-        source={Images.splash.background}
-        resizeMode="cover"
-        style={CharactersListStyles.background}>
-        <View>
-          <Image
-            source={Images.charactersList.arrowDown}
-            style={CharactersListStyles.arrowDown}
-            resizeMode="contain"
-          />
-          <FlatList
-            style={CharactersListStyles.charactersListContainer}
-            data={charactersStore.characters}
-            renderItem={renderItem}
-            onEndReachedThreshold={0.7}
-            onEndReached={() =>
-              charactersStore.shouldFetachMoreCharacters &&
-              getCharacters(charactersStore.nextCharactersUrl)
-            }
-            ListFooterComponent={<CharactersListFooter />}
-          />
-        </View>
-      </ImageBackground>
-    </View>
-  );
-});
+  }) => {
+    const {
+      stores: {
+        charactersStore,
+        favoritesStore,
+        charactersStore: { getCharacters, resetCharactersStore },
+      },
+    } = useStores();
+    useEffect(() => {
+      return () => {
+        resetCharactersStore();
+      };
+    }, []);
+    return (
+      <View style={CharactersListStyles.container}>
+        <ImageBackground
+          source={Images.splash.background}
+          resizeMode="cover"
+          style={CharactersListStyles.background}>
+          <View>
+            <Image
+              source={Images.charactersList.arrowDown}
+              style={CharactersListStyles.arrowDown}
+              resizeMode="contain"
+            />
+            {screen === 'Characters' ? (
+              <FlatList
+                style={CharactersListStyles.charactersListContainer}
+                data={charactersStore.characters}
+                renderItem={renderItem}
+                onEndReachedThreshold={0.7}
+                onEndReached={() =>
+                  charactersStore.shouldFetachMoreCharacters &&
+                  getCharacters(charactersStore.nextCharactersUrl)
+                }
+                ListFooterComponent={<CharactersListFooter />}
+              />
+            ) : (
+              <ScrollView
+                style={CharactersListStyles.charactersListContainer}
+                showsHorizontalScrollIndicator={false}
+                bounces>
+                {favoritesStore.favoriteCharacters.map((item, index) => (
+                  <CharacterRowComponent
+                    item={item}
+                    index={index}
+                    key={index}
+                  />
+                ))}
+              </ScrollView>
+            )}
+          </View>
+        </ImageBackground>
+      </View>
+    );
+  },
+);

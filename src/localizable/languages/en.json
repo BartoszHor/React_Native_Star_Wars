@@ -14,7 +14,8 @@
     ":)": "May the force be with you!",
     "details": "Details",
     "addToFavorites": "Favorites +",
-    "added": "Added to favs"
+    "added": "Added to favs",
+    "remove": "Remove"
   },
   "alerts": {
     "ok": "Ok",

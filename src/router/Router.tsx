@@ -38,8 +38,8 @@ const IosModalScreens = () => (
     }}>
     <Stack.Screen name="MainView" component={MainView} />
     <Stack.Screen name="Characters" component={Characters} />
-    {/* <Stack.Screen name="Favorites" component={Favorites} />
-    <Stack.Screen name="ContactForm" component={ContactForm} /> */}
+    <Stack.Screen name="Favorites" component={Characters} />
+    {/* <Stack.Screen name="ContactForm" component={ContactForm} /> */}
   </Stack.Navigator>
 );
 
