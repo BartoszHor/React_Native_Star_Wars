@@ -13,6 +13,13 @@
     "height": "Height: ",
     ":)": "May the force be with you!",
     "details": "Details",
-    "addToFavorites": "Favorites +"
+    "addToFavorites": "Favorites +",
+    "added": "Added to favs"
+  },
+  "alerts": {
+    "ok": "Ok",
+    "error": "Error",
+    "pageNotFound": "Page not found",
+    "404": "404"
   }
 }

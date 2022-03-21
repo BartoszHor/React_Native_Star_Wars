@@ -5,6 +5,7 @@ import { CharacterButton, NavigationButton } from '../../repository/models';
 import ButtonStyles from './styles/ButtonStyles';
 import * as Animatable from 'react-native-animatable';
 import { useStores } from '../../App';
+import { Localizable } from '../../../packages/i18n';
 
 export default observer(
   ({
@@ -13,10 +14,12 @@ export default observer(
     characterButton,
     index,
     characterIndex,
+    characterInFavorites,
   }: NavigationButton | CharacterButton) => {
     const {
       stores: { navigationStore, favoritesStore },
     } = useStores();
+    const inFavorites = index === 1 && characterInFavorites;
     return !characterButton ? (
       <TouchableOpacity
         disabled={index === 1 && !favoritesStore.favoriteCharactersLength}
@@ -38,9 +41,21 @@ export default observer(
         </Animatable.View>
       </TouchableOpacity>
     ) : (
-      <TouchableOpacity onPress={() => handlePress(characterIndex)}>
-        <View style={ButtonStyles.innerContainerCharacterButton}>
-          <Text style={ButtonStyles.titleTextCharacterButton}>{text}</Text>
+      <TouchableOpacity
+        disabled={inFavorites}
+        onPress={() => handlePress(characterIndex)}>
+        <View
+          style={
+            inFavorites
+              ? [
+                  ButtonStyles.innerContainerCharacterButton,
+                  ButtonStyles.innerContainerCharacterButtonBorder,
+                ]
+              : ButtonStyles.innerContainerCharacterButton
+          }>
+          <Text style={ButtonStyles.titleTextCharacterButton}>
+            {inFavorites ? Localizable.t('charactersList.added') : text}
+          </Text>
         </View>
       </TouchableOpacity>
     );

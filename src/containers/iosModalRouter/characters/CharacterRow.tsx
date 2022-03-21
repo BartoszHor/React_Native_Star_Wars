@@ -1,16 +1,17 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import CharactersListStyles from '../characters/styles/CharactersStyles';
 import { Localizable } from '../../../../packages/i18n';
 import { CharacterButton } from '../../../repository/models';
 import { observer } from 'mobx-react';
 import { useStores } from '../../../App';
+import CharactersListStyles from '../characters/styles/CharactersStyles';
 import Button from '../../../components/buttons/Button';
 
 const renderButton = (
   { text, handlePress, characterButton }: CharacterButton,
   characterIndex: number,
   index: number,
+  characterInFavorites: boolean,
 ) => {
   return (
     <Button
@@ -20,6 +21,7 @@ const renderButton = (
       key={index}
       characterButton={characterButton}
       characterIndex={characterIndex}
+      characterInFavorites={characterInFavorites}
     />
   );
 };
@@ -31,8 +33,11 @@ interface Props {
 
 export default observer(({ item: character, index: characterIndex }: Props) => {
   const {
-    stores: { charactersStore },
+    stores: { charactersStore, favoritesStore },
   } = useStores();
+  const characterInFavorites = favoritesStore.favoriteCharacters.some(
+    ({ name }) => name === character.name,
+  );
   return (
     <TouchableOpacity style={CharactersListStyles.characterContainer}>
       <View style={CharactersListStyles.characterInnerContainer}>
@@ -49,7 +54,7 @@ export default observer(({ item: character, index: characterIndex }: Props) => {
         <View>
           <View>
             {charactersStore.characterButtons.map((button, index) =>
-              renderButton(button, characterIndex, index),
+              renderButton(button, characterIndex, index, characterInFavorites),
             )}
           </View>
         </View>

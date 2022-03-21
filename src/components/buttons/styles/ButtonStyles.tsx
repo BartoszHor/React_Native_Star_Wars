@@ -29,6 +29,10 @@ export default StyleSheet.create({
     borderColor: Colors.yellow,
     borderWidth: 2,
     margin: 5,
+    width: 110,
+  },
+  innerContainerCharacterButtonBorder: {
+    borderColor: 'green',
   },
   titleTextCharacterButton: {
     shadowColor: Colors.white,

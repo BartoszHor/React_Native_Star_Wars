@@ -15,6 +15,7 @@ import RootStore from './stores/RootStore';
 import Router from './router/Router';
 import SplashScreen from './containers/splash/SplashScreen';
 import Loader from './components/loader/Loader';
+import Alerts from './components/alerts/Alerts';
 
 const rootStore = new RootStore();
 const storesContext = React.createContext(rootStore);
@@ -49,6 +50,7 @@ const App = observer(() => {
     <View style={styles.container}>
       <Router onRouteChange={setCurrentRouteName} />
       <Loader />
+      <Alerts />
       {splashScreenStore.reactSplashShown && <SplashScreen />}
     </View>
   );

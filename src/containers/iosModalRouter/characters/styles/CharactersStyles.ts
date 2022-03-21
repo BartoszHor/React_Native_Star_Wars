@@ -21,7 +21,8 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   characterContainer: {
-    margin: 20,
+    marginHorizontal: 10,
+    marginVertical: 20,
   },
   characterInnerContainer: {
     backgroundColor: 'transparent',

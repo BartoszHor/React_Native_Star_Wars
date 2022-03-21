@@ -58,10 +58,12 @@ export default class CharactersStore extends BaseStore {
       this.characters.length === this.totalCharactersCount
     );
   }
+
   @computed
   get characterButtons(): Array<any> {
     const {
       favoritesStore: { addToFavorites },
+      alertStore: { showDropdownAlert },
     } = this.rootStore.stores;
     return [
       {
@@ -71,7 +73,10 @@ export default class CharactersStore extends BaseStore {
       },
       {
         text: Localizable.t('charactersList.addToFavorites'),
-        handlePress: (index: number) => addToFavorites(index),
+        handlePress: (index: number) => {
+          addToFavorites(index);
+          showDropdownAlert('Added character to favorites!');
+        },
         characterButton: true,
       },
     ];
