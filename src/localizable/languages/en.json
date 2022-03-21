@@ -10,6 +10,7 @@
   },
   "charactersList": {
     "name": "Name: ",
+    "planetName": "Planet name: ",
     "height": "Height: ",
     "gender": "Gender: ",
     "mass": "Mass: ",

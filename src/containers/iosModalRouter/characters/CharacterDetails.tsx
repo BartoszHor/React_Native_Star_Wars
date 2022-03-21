@@ -86,7 +86,7 @@ export default observer(() => {
           {!!charactersStore.characterPlanetInfo && (
             <>
               <Text style={CharacterDetailsStyles.characterText}>
-                {Localizable.t('charactersList.name')}
+                {Localizable.t('charactersList.planetName')}
                 {charactersStore.characterPlanetInfo.name}
               </Text>
               <Text style={CharacterDetailsStyles.characterText}>

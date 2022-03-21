@@ -17,7 +17,7 @@ export default StyleSheet.create({
     shadowOpacity: 1,
     shadowOffset: { width: 5, height: 5 },
     fontWeight: '400',
-    fontSize: 26,
+    fontSize: 24,
     color: Colors.white,
     letterSpacing: 2,
     marginBottom: 30,
