@@ -15,6 +15,8 @@ export default observer(
     index,
     characterIndex,
     characterInFavorites,
+    disabled,
+    infoLoaded,
   }: NavigationButton | CharacterButton) => {
     const {
       stores: { navigationStore, favoritesStore },
@@ -42,11 +44,11 @@ export default observer(
       </TouchableOpacity>
     ) : (
       <TouchableOpacity
-        disabled={inFavorites}
+        disabled={inFavorites || disabled}
         onPress={() => handlePress(characterIndex)}>
         <View
           style={
-            inFavorites
+            inFavorites || (disabled && infoLoaded)
               ? [
                   ButtonStyles.innerContainerCharacterButton,
                   ButtonStyles.innerContainerCharacterButtonBorder,

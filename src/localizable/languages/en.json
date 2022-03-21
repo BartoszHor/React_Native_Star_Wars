@@ -16,9 +16,12 @@
     ":)": "May the force be with you!",
     "details": "Details",
     "planetInfo": "Planet Info",
+    "planetInfoLoaded": "Info loaded",
     "addToFavorites": "Favorites +",
     "added": "Added to favs",
-    "remove": "Remove"
+    "remove": "Remove",
+    "population": "Population: ",
+    "climate": "Climate: "
   },
   "alerts": {
     "ok": "Ok",

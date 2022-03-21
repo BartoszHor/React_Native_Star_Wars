@@ -10,16 +10,18 @@ import { CharacterButton } from '../../../repository/models';
 import Button from '../../../components/buttons/Button';
 
 const renderButton = (
-  { text, handlePress, characterButton }: CharacterButton,
+  { text, handlePress, characterButton, disabled }: CharacterButton,
   index: number,
   characterIndex: number,
   characterInFavorites: boolean,
 ) => {
   return (
     <Button
+      disabled={disabled}
       text={text}
       handlePress={handlePress}
       index={index}
+      infoLoaded={true}
       key={index}
       characterButton={characterButton}
       characterIndex={characterIndex}
@@ -81,7 +83,23 @@ export default observer(() => {
             {Localizable.t('charactersList.mass')}
             {charactersStore.character.mass}
           </Text>
-          <View style={{ flexDirection: 'row' }}>
+          {!!charactersStore.characterPlanetInfo && (
+            <>
+              <Text style={CharacterDetailsStyles.characterText}>
+                {Localizable.t('charactersList.name')}
+                {charactersStore.characterPlanetInfo.name}
+              </Text>
+              <Text style={CharacterDetailsStyles.characterText}>
+                {Localizable.t('charactersList.population')}
+                {charactersStore.characterPlanetInfo.population}
+              </Text>
+              <Text style={CharacterDetailsStyles.characterText}>
+                {Localizable.t('charactersList.climate')}
+                {charactersStore.characterPlanetInfo.climate}
+              </Text>
+            </>
+          )}
+          <View style={CharacterDetailsStyles.buttonsContainer}>
             {charactersStore.characterDetailsButtons.map((button, index) =>
               renderButton(button, index, characterIndex, characterInFavorites),
             )}

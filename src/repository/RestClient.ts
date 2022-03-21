@@ -26,6 +26,8 @@ if (isDev) {
 
 class RestClient {
   fetchCharacters = (url: string) => instance.get(url);
+
+  fetchPlanetInfo = (url: string) => instance.get(url);
 }
 
 export default new RestClient();

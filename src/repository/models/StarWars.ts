@@ -4,6 +4,8 @@ export interface NavigationButton {
   characterButton?: boolean;
   characterIndex?: number;
   characterInFavorites?: boolean;
+  disabled?: boolean;
+  infoLoaded?: boolean;
   index: number;
 }
 export interface CharacterButton {
@@ -13,6 +15,8 @@ export interface CharacterButton {
   index: number;
   characterIndex: number;
   characterInFavorites: boolean;
+  infoLoaded?: boolean;
+  disabled?: boolean;
 }
 
 export interface NavigationButtonStore {

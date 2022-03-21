@@ -15,7 +15,13 @@ export default class AppStore extends BaseStore {
 
   @action
   setModalInvisable = () => {
+    const {
+      charactersStore: { clearCharacterPlanetInfo },
+    } = this.rootStore.stores;
     this.modalVisable = false;
+    setTimeout(() => {
+      clearCharacterPlanetInfo();
+    }, 200);
   };
 
   @action

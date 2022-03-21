@@ -20,11 +20,19 @@ export default class CharactersStore extends BaseStore {
   character: any | null = null;
 
   @observable
+  characterPlanetInfo: any | null = null;
+
+  @observable
   totalCharactersCount: number = 0;
 
   @action
   setCharacter = (character: any) => {
     this.character = character;
+  };
+
+  @action
+  clearCharacterPlanetInfo = () => {
+    this.characterPlanetInfo = null;
   };
 
   @action
@@ -46,6 +54,15 @@ export default class CharactersStore extends BaseStore {
       this.nextCharactersUrl = next;
       this.totalCharactersCount = count;
       this.characters = [...this.characters, ...characters];
+    } catch (error) {
+      console.log('looog', error);
+    }
+  }).bind(this);
+
+  getPlanetInfo = flow(function* (this: CharactersStore, url: string) {
+    try {
+      const { data } = yield RestClient.fetchPlanetInfo(url);
+      this.characterPlanetInfo = data;
     } catch (error) {
       console.log('looog', error);
     }
@@ -110,14 +127,21 @@ export default class CharactersStore extends BaseStore {
     const {
       favoritesStore: { addToFavorites },
       alertStore: { showDropdownAlert },
+      appStore: { showLoading, hideLoading },
     } = this.rootStore.stores;
     return [
       {
-        text: Localizable.t('charactersList.planetInfo'),
-        handlePress: () => {
-          console.log('looog planet');
+        text: !!this.characterPlanetInfo
+          ? Localizable.t('charactersList.planetInfoLoaded')
+          : Localizable.t('charactersList.planetInfo'),
+        handlePress: async () => {
+          showLoading();
+          await this.getPlanetInfo(this.character.homeworld);
+          LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+          hideLoading();
         },
         characterButton: true,
+        disabled: !!this.characterPlanetInfo,
       },
       {
         text: Localizable.t('charactersList.addToFavorites'),

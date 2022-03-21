@@ -27,6 +27,10 @@ export default StyleSheet.create({
     height: 20,
     tintColor: Colors.white,
   },
+  buttonsContainer: {
+    flexDirection: 'row',
+    marginLeft: -5,
+  },
   closeButton: {
     position: 'absolute',
     top: 5,
