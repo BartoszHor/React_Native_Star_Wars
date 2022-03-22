@@ -39,7 +39,6 @@ export interface Alert {
   text?: string;
   buttons: Array<IAlertButton>;
   paddingBottom?: number;
-  onCloseButtonClick?: () => void;
 }
 
 export interface HandleErrorProps {
@@ -47,12 +46,4 @@ export interface HandleErrorProps {
   showAlert?: boolean;
   title?: string;
   buttons?: Array<IAlertButton>;
-  onCloseButtonClick?: () => void;
-}
-
-export interface HandleAlertProps {
-  title?: string;
-  text?: string;
-  buttons?: Array<IAlertButton>;
-  onCloseButtonClick?: () => void;
 }

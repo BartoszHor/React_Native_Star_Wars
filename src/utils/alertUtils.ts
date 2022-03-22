@@ -1,10 +1,13 @@
 const extractErrorMessage = (error: any) => {
-  if (typeof error === 'string') {
-    return error;
-  }
   const code = errorCode(error);
+  if (code === 404) {
+    return '404 - PAGE NOT FOUND';
+  }
   if (code >= 500 && code < 600) {
     return "Sorry! We're experiencing technical difficulties. Please try again.";
+  }
+  if (typeof error === 'string') {
+    return error;
   }
   if (error.response) {
     if (typeof error?.response?.data === 'string') {

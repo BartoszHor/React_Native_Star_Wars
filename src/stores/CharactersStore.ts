@@ -43,6 +43,9 @@ export default class CharactersStore extends BaseStore {
   };
 
   getCharacters = flow(function* (this: CharactersStore, url: string) {
+    const {
+      alertStore: { handleError },
+    } = this.rootStore.stores;
     try {
       const {
         data: { count, next, results: characters },
@@ -55,16 +58,19 @@ export default class CharactersStore extends BaseStore {
       this.totalCharactersCount = count;
       this.characters = [...this.characters, ...characters];
     } catch (error) {
-      console.log('looog', error);
+      handleError({ error });
     }
   }).bind(this);
 
   getPlanetInfo = flow(function* (this: CharactersStore, url: string) {
+    const {
+      alertStore: { handleError },
+    } = this.rootStore.stores;
     try {
       const { data } = yield RestClient.fetchPlanetInfo(url);
       this.characterPlanetInfo = data;
     } catch (error) {
-      console.log('looog', error);
+      handleError({ error });
     }
   }).bind(this);
 

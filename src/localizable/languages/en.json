@@ -26,8 +26,6 @@
   },
   "alerts": {
     "ok": "Ok",
-    "error": "Error",
-    "pageNotFound": "Page not found",
-    "404": "404"
+    "error": "Error"
   }
 }

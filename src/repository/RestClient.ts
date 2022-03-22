@@ -1,9 +1,7 @@
 import axios from 'axios';
-import { getEnv } from '../../packages/config';
 import { isDev } from '../../packages/is-dev';
 
 const instance = axios.create({
-  // baseURL: getEnv('https://swapi.dev/api'),
   timeout: 30000,
 });
 

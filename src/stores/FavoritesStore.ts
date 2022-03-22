@@ -18,7 +18,7 @@ export default class FavoritesStore
     const { charactersStore } = this.rootStore.stores;
     const character = charactersStore.characters[index];
     if (!this.favoriteCharacters.some(({ name }) => name === character.name)) {
-      this.favoriteCharacters.push(character);
+      this.favoriteCharacters.unshift(character);
     }
   };
 

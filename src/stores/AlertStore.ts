@@ -3,11 +3,7 @@ import { RefObject, createRef } from 'react';
 import DropdownAlert from 'react-native-dropdownalert';
 
 import { BaseStore } from '.';
-import {
-  Alert,
-  HandleErrorProps,
-  HandleAlertProps,
-} from '../repository/models';
+import { Alert, HandleErrorProps } from '../repository/models';
 import { Localizable } from '../../packages/i18n';
 import { extractErrorMessage } from '../utils/alertUtils';
 
@@ -15,22 +11,21 @@ export default class AlertStore extends BaseStore {
   @observable
   dropdownAlertRef: RefObject<DropdownAlert> = createRef();
 
+  defaultButton = {
+    text: Localizable.t('alerts.ok'),
+    onPress: () => this.dismissAlert(),
+    buttonType: 'default',
+  };
+
   @observable
   alerts: Array<Alert> = [];
 
   @action
   handleError = ({
     error,
-    buttons = [
-      {
-        text: Localizable.t('alerts.ok'),
-        onPress: () => this.dismissAlert(),
-        buttonType: 'default',
-      },
-    ],
-    showAlert = false,
+    buttons = [{ ...this.defaultButton }],
+    showAlert = true,
     title = Localizable.t('alerts.error'),
-    onCloseButtonClick,
   }: HandleErrorProps) => {
     if (!!showAlert) {
       const errorMessage = extractErrorMessage(error);
@@ -41,39 +36,31 @@ export default class AlertStore extends BaseStore {
         title,
         text: errorMessage,
         buttons,
-        onCloseButtonClick,
       };
       this.alerts = [alert];
     }
   };
 
   @action
-  showAlert = ({
-    title = Localizable.t('alerts.pageNotFound'),
-    text = Localizable.t('alerts.404'),
-    buttons = [
-      {
-        text: Localizable.t('alerts.ok'),
-        onPress: () => this.dismissAlert(),
-        buttonType: 'default',
-      },
-    ],
-    onCloseButtonClick,
-  }: HandleAlertProps) => {
-    const alert = {
-      title,
-      text,
-      buttons,
-      onCloseButtonClick,
-    };
-    this.alerts = [alert];
-  };
-
-  @action
   dismissAlert = () => {
+    this.navigateBack();
     if (this.alerts.length > 0) {
       this.alerts = this.alerts.filter((_, i) => i !== this.alerts.length - 1);
     }
+  };
+
+  @action
+  navigateBack = () => {
+    const {
+      navigationStore: { navigate },
+      appStore: { setModalInvisable },
+      appStore,
+    } = this.rootStore.stores;
+    if (appStore.modalVisable) {
+      setModalInvisable();
+      return;
+    }
+    navigate('MainView');
   };
 
   @action

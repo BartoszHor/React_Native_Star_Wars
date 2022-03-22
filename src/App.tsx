@@ -46,8 +46,8 @@ const App = observer(() => {
       <Router onRouteChange={setCurrentRouteName} />
       <Modals />
       <Loader />
-      <Alerts />
       {splashScreenStore.reactSplashShown && <SplashScreen />}
+      <Alerts />
     </View>
   );
 });
