@@ -25,6 +25,14 @@ export default class CharactersStore extends BaseStore {
   @observable
   totalCharactersCount: number = 0;
 
+  @observable
+  charactersScreenSearchBarText = '';
+
+  @action
+  setCharactersScreenSearchBarText = (text: string) => {
+    this.charactersScreenSearchBarText = text;
+  };
+
   @action
   setCharacter = (character: any) => {
     this.character = character;
@@ -76,7 +84,10 @@ export default class CharactersStore extends BaseStore {
 
   @computed
   get shouldFetachMoreCharacters(): boolean {
-    return this.characters.length < this.totalCharactersCount;
+    return (
+      this.characters.length < this.totalCharactersCount &&
+      this.charactersScreenSearchBarText.length === 0
+    );
   }
 
   @computed
@@ -99,7 +110,7 @@ export default class CharactersStore extends BaseStore {
       {
         text: Localizable.t('charactersList.details'),
         handlePress: (index: number) => {
-          this.setCharacter(this.characters[index]);
+          this.setCharacter(this.filteredCharacters[index]);
           setModalVisable();
         },
         characterButton: true,
@@ -166,5 +177,23 @@ export default class CharactersStore extends BaseStore {
     return navigationStore.currentRouteName === 'Characters'
       ? this.characterRowButtons.splice(0, 2)
       : this.characterRowButtons.slice(-1);
+  }
+
+  @computed
+  get shouldHideLoader(): boolean {
+    const { navigationStore } = this.rootStore.stores;
+    return (
+      this.charactersScreenSearchBarText.length > 0 &&
+      navigationStore.currentRouteName === 'Characters'
+    );
+  }
+
+  @computed
+  get filteredCharacters(): Array<any> {
+    return this.characters.filter((character) =>
+      character.name
+        .toLowerCase()
+        .includes(this.charactersScreenSearchBarText.toLowerCase()),
+    );
   }
 }

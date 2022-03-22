@@ -10,7 +10,9 @@ export default observer(() => {
   const {
     stores: { charactersStore },
   } = useStores();
-
+  if (charactersStore.shouldHideLoader) {
+    return null;
+  }
   return charactersStore.allCharactersFetched ? (
     <View>
       <Text style={CharactersListStyles.listFooterText}>

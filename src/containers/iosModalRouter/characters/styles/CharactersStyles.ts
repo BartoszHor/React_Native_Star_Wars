@@ -15,6 +15,16 @@ export default StyleSheet.create({
   background: {
     flex: 1,
   },
+  searchBar: {
+    fontSize: 24,
+    fontWeight: '400',
+    color: 'white',
+    textAlignVertical: 'center',
+    borderColor: 'white',
+    opacity: 0.5,
+    height: 28,
+    paddingHorizontal: 5,
+  },
   arrowDown: {
     height: 40,
     tintColor: Colors.white,
@@ -44,11 +54,11 @@ export default StyleSheet.create({
     paddingVertical: 10,
   },
   listFooterLoader: {
-    marginBottom: 20,
+    marginBottom: 60,
   },
   listFooterText: {
     color: Colors.yellow,
-    marginBottom: 20,
+    marginBottom: 60,
     alignSelf: 'center',
     letterSpacing: 2,
   },

@@ -6,6 +6,7 @@ import {
   FlatList,
   Image,
   ScrollView,
+  TextInput,
 } from 'react-native';
 import Images from '../../../utils/Images';
 import CharactersListStyles from '../characters/styles/CharactersStyles';
@@ -27,14 +28,20 @@ export default observer(
       stores: {
         charactersStore,
         favoritesStore,
-        charactersStore: { getCharacters, resetCharactersStore },
+        charactersStore: {
+          getCharacters,
+          resetCharactersStore,
+          setCharactersScreenSearchBarText,
+        },
       },
     } = useStores();
     useEffect(() => {
       return () => {
         resetCharactersStore();
+        setCharactersScreenSearchBarText('');
       };
     }, []);
+
     return (
       <View style={CharactersListStyles.container}>
         <ImageBackground
@@ -48,17 +55,26 @@ export default observer(
               resizeMode="contain"
             />
             {screen === 'Characters' ? (
-              <FlatList
-                style={CharactersListStyles.charactersListContainer}
-                data={charactersStore.characters}
-                renderItem={renderItem}
-                onEndReachedThreshold={0.7}
-                onEndReached={() =>
-                  charactersStore.shouldFetachMoreCharacters &&
-                  getCharacters(charactersStore.nextCharactersUrl)
-                }
-                ListFooterComponent={<CharactersListFooter />}
-              />
+              <>
+                <TextInput
+                  onChangeText={setCharactersScreenSearchBarText}
+                  value={charactersStore.charactersScreenSearchBarText}
+                  style={CharactersListStyles.searchBar}
+                  placeholder={'Search by name'}
+                  placeholderTextColor={'white'}
+                />
+                <FlatList
+                  style={CharactersListStyles.charactersListContainer}
+                  data={charactersStore.filteredCharacters}
+                  renderItem={renderItem}
+                  onEndReachedThreshold={0.7}
+                  onEndReached={() =>
+                    charactersStore.shouldFetachMoreCharacters &&
+                    getCharacters(charactersStore.nextCharactersUrl)
+                  }
+                  ListFooterComponent={<CharactersListFooter />}
+                />
+              </>
             ) : (
               <ScrollView
                 style={CharactersListStyles.charactersListContainer}
