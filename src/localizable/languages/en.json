@@ -27,5 +27,14 @@
   "alerts": {
     "ok": "Ok",
     "error": "Error"
+  },
+  "contactForm": {
+    "firstName": "Name",
+    "surname": "Surname",
+    "email": "Email",
+    "postalCode": "Postal code",
+    "telephone": "Phone",
+    "message": "Message",
+    "submit": "Submit"
   }
 }

@@ -8,6 +8,7 @@ export { default as Stores } from './RootStore';
 export { default as AppStore } from './AppStore';
 export { default as SplashScreenStore } from './SplashScreenStore';
 export { default as AlertStore } from './AlertStore';
+export { default as ContactFormStore } from './ContactFormStore';
 export { default as NavigationStore } from './NavigationStore';
 export { default as LayoutStore } from './LayoutStore';
 export { default as CharactersStore } from './CharactersStore';

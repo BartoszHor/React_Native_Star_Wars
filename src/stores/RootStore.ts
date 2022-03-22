@@ -10,6 +10,7 @@ import {
   CharactersStore,
   FavoritesStore,
   LayoutStore,
+  ContactFormStore,
 } from '.';
 const hydrateStores = create({ storage: AsyncStorage });
 
@@ -21,6 +22,7 @@ export interface Stores {
   charactersStore: CharactersStore;
   favoritesStore: FavoritesStore;
   layoutStore: LayoutStore;
+  contactFormStore: ContactFormStore;
 }
 
 export interface PersistDataStore {
@@ -46,6 +48,7 @@ const stores = (store: RootStore): Stores => ({
   splashScreenStore: new SplashScreenStore(store),
   charactersStore: new CharactersStore(store),
   favoritesStore: new FavoritesStore(store),
+  contactFormStore: new ContactFormStore(store),
   layoutStore: new LayoutStore(store),
 });
 

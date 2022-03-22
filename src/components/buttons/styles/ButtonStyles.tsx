@@ -32,7 +32,7 @@ export default StyleSheet.create({
     width: 110,
   },
   innerContainerCharacterButtonBorder: {
-    borderColor: 'green',
+    borderColor: Colors.green,
   },
   titleTextCharacterButton: {
     shadowColor: Colors.white,

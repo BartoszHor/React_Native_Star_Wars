@@ -12,6 +12,7 @@ import { observer } from 'mobx-react';
 import { navigationRef } from '../stores/NavigationStore';
 import Characters from '../containers/iosModalRouter/characters/Characters';
 import MainView from '../containers/iosModalRouter/mainView/MainView';
+import ContactForm from '../containers/iosModalRouter/contactForm/ContactForm';
 
 const getCurrentRouteName = (
   state?: NavigationState | PartialState<NavigationState>,
@@ -39,7 +40,7 @@ const IosModalScreens = () => (
     <Stack.Screen name="MainView" component={MainView} />
     <Stack.Screen name="Characters" component={Characters} />
     <Stack.Screen name="Favorites" component={Characters} />
-    {/* <Stack.Screen name="ContactForm" component={ContactForm} /> */}
+    <Stack.Screen name="ContactForm" component={ContactForm} />
   </Stack.Navigator>
 );
 
