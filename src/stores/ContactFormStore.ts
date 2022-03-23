@@ -4,8 +4,13 @@ import { TextInput } from 'react-native';
 
 import { BaseStore } from '../stores';
 
-type ContactFormErrorType = 'firstName' | 'lastName' | 'zipCode' | 'email';
-
+type ContactFormErrorType =
+  | 'firstName'
+  | 'lastName'
+  | 'zipCode'
+  | 'email'
+  | 'phone'
+  | 'message';
 export default class ContactFormStore extends BaseStore {
   @observable.ref
   lastNameTextInputRef: RefObject<TextInput> = createRef();
@@ -15,6 +20,12 @@ export default class ContactFormStore extends BaseStore {
 
   @observable.ref
   emailTextInputRef: RefObject<TextInput> = createRef();
+
+  @observable.ref
+  phoneTextInputRef: RefObject<TextInput> = createRef();
+
+  @observable.ref
+  messageTextInputRef: RefObject<TextInput> = createRef();
 
   @observable
   firstName = '';
@@ -29,10 +40,13 @@ export default class ContactFormStore extends BaseStore {
   email = '';
 
   @observable
-  errors: Array<ContactFormErrorType> = [];
+  phone = '+48';
 
   @observable
-  lastAddedErrors: Array<ContactFormErrorType> | null = null;
+  message = '';
+
+  @observable
+  errors: Array<ContactFormErrorType> = [];
 
   @action
   focusLastNameInput = () => {
@@ -47,6 +61,28 @@ export default class ContactFormStore extends BaseStore {
   @action
   focusEmailInput = () => {
     this.emailTextInputRef.current?.focus();
+  };
+
+  @action
+  focusPhoneInput = () => {
+    this.phoneTextInputRef.current?.focus();
+  };
+
+  @action
+  focusMessageInput = () => {
+    this.messageTextInputRef.current?.focus();
+  };
+
+  blurZipCodeInput = () => {
+    this.zipCodeTextInputRef.current?.blur();
+  };
+
+  blurEmailInput = () => {
+    this.emailTextInputRef.current?.blur();
+  };
+
+  blurPhoneInput = () => {
+    this.phoneTextInputRef.current?.blur();
   };
 
   @action
@@ -77,8 +113,17 @@ export default class ContactFormStore extends BaseStore {
   };
 
   @action
+  setPhone = (phone: string) => {
+    this.phone = phone;
+  };
+
+  @action
+  setMessage = (message: string) => {
+    this.message = message;
+  };
+
+  @action
   setErrors = (errors: Array<ContactFormErrorType>) => {
-    this.lastAddedErrors = errors;
     errors.forEach((error) => {
       if (!this.errors.some((e) => e === error)) {
         this.errors.push(error);
@@ -99,6 +144,9 @@ export default class ContactFormStore extends BaseStore {
     this.firstName = '';
     this.lastName = '';
     this.zipCode = '';
+    this.email = '';
+    this.phone = '+48';
+    this.message = '';
   };
 
   onFirstNameInputFocus = () => {
@@ -118,38 +166,71 @@ export default class ContactFormStore extends BaseStore {
     this.resetErrors(['email']);
   };
 
+  onPhoneInputFocus = () => {
+    this.resetErrors(['phone']);
+  };
+
+  onMessageInputFocus = () => {
+    this.resetErrors(['message']);
+  };
+
   submit = () => {
+    const {
+      alertStore: { showDropdownAlert },
+      navigationStore: { goBack },
+    } = this.rootStore.stores;
     this.validateFields();
-    console.log('looog submit');
+    if (!this.errors.length) {
+      showDropdownAlert('Thanks for sending form');
+      goBack();
+    }
+    if (!!this.errors.length) {
+      showDropdownAlert('Please provide proper format in marked fields');
+    }
   };
 
   validateFields = () => {
-    if (this.firstName.length === 0) {
-      this.setErrors(['firstName']);
-    }
-    if (this.lastName.length === 0) {
-      this.setErrors(['lastName']);
-    }
-    if (this.zipCode.length === 0) {
+    const zipRegExp = /^[0-9]{2}-[0-9]{3}/;
+    const emailRegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegExp = /^(\+48\s*)?\d{2}\s*\d{3}(\s*|\-)\d{2}(\s*|\-)\d{2}$/;
+    if (!zipRegExp.test(this.zipCode)) {
       this.setErrors(['zipCode']);
+      this.blurZipCodeInput();
+    }
+    if (!emailRegExp.test(this.email)) {
+      this.setErrors(['email']);
+      this.blurEmailInput();
+    }
+    if (!phoneRegExp.test(this.phone)) {
+      this.setErrors(['phone']);
+      this.blurPhoneInput();
     }
   };
 
-  // @computed to be used if needed
-  // get isFirstNameError(): boolean {
-  //   return this.errors.some((error) => error === 'firstName');
-  // }
+  @computed
+  get isZipError(): boolean {
+    return this.errors.some((error) => error === 'zipCode');
+  }
 
-  //tbc - zipCode regExp
+  @computed
+  get isEmailError(): boolean {
+    return this.errors.some((error) => error === 'email');
+  }
+
+  @computed
+  get isPhoneError(): boolean {
+    return this.errors.some((error) => error === 'phone');
+  }
 
   @computed
   get fieldsValid(): boolean {
-    const regExp = /^[0-9]{2}-[0-9]{3}/;
     return (
       this.firstName.length !== 0 &&
       this.lastName.length !== 0 &&
       this.zipCode.length === 6 &&
-      regExp.test(this.zipCode) &&
+      this.email.length > 4 &&
+      this.phone.length >= 12 &&
+      !!this.message.length &&
       this.errors.length === 0
     );
   }

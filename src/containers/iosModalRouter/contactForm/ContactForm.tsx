@@ -24,14 +24,20 @@ export default observer(() => {
         focusLastNameInput,
         focusZipCodeInput,
         focusEmailInput,
+        focusPhoneInput,
+        focusMessageInput,
         onFirstNameInputFocus,
         onLastNameInputFocus,
         onZipInputFocus,
         onEmailInputFocus,
+        onPhoneInputFocus,
+        onMessageInputFocus,
         setFirstName,
         setLastName,
         setZipCode,
         setEmail,
+        setPhone,
+        setMessage,
         clearStore,
         submit,
       },
@@ -99,10 +105,16 @@ export default observer(() => {
               </Text>
               <TextInput
                 ref={contactFormStore.zipCodeTextInputRef}
-                style={ContactFormStyles.input}
+                style={[
+                  ContactFormStyles.input,
+                  {
+                    borderColor: contactFormStore.isZipError
+                      ? Colors.red
+                      : Colors.yellow,
+                  },
+                ]}
                 onSubmitEditing={focusEmailInput}
                 keyboardType="numeric"
-                placeholder="**-***"
                 placeholderTextColor="white"
                 returnKeyType="next"
                 value={contactFormStore.zipCode}
@@ -117,12 +129,69 @@ export default observer(() => {
               </Text>
               <TextInput
                 ref={contactFormStore.emailTextInputRef}
-                style={ContactFormStyles.input}
-                // onSubmitEditing={focusZipCodeInput}
-                // returnKeyType="next"
+                autoCapitalize={'none'}
+                style={[
+                  ContactFormStyles.input,
+                  {
+                    borderColor: contactFormStore.isEmailError
+                      ? Colors.red
+                      : Colors.yellow,
+                  },
+                ]}
+                onSubmitEditing={focusPhoneInput}
+                returnKeyType="next"
                 value={contactFormStore.email}
                 onChangeText={setEmail}
                 onFocus={onEmailInputFocus}
+              />
+            </View>
+          </View>
+          <View style={ContactFormStyles.rowContainer}>
+            <View style={ContactFormStyles.inputContainerFlex}>
+              <Text style={ContactFormStyles.inputTitle}>
+                {Localizable.t('contactForm.telephone')}
+              </Text>
+              <TextInput
+                ref={contactFormStore.phoneTextInputRef}
+                style={[
+                  ContactFormStyles.input,
+                  {
+                    borderColor: contactFormStore.isPhoneError
+                      ? Colors.red
+                      : Colors.yellow,
+                  },
+                ]}
+                onSubmitEditing={focusMessageInput}
+                keyboardType="numeric"
+                placeholderTextColor="white"
+                returnKeyType="next"
+                value={contactFormStore.phone}
+                onChangeText={setPhone}
+                onFocus={onPhoneInputFocus}
+              />
+            </View>
+          </View>
+          <View style={ContactFormStyles.rowContainer}>
+            <View style={ContactFormStyles.inputContainerFlex}>
+              <Text style={ContactFormStyles.inputTitle}>
+                {Localizable.t('contactForm.message')}
+              </Text>
+              <TextInput
+                ref={contactFormStore.messageTextInputRef}
+                style={[
+                  ContactFormStyles.input,
+                  {
+                    maxHeight: 150,
+                    paddingTop: 15,
+                  },
+                ]}
+                multiline
+                numberOfLines={10}
+                placeholder="Your message"
+                placeholderTextColor="white"
+                value={contactFormStore.message}
+                onChangeText={setMessage}
+                onFocus={onMessageInputFocus}
               />
             </View>
           </View>

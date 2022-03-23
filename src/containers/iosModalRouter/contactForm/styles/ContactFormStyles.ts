@@ -11,7 +11,6 @@ export default StyleSheet.create({
     flex: 1,
   },
   rowContainer: {
-    alignSelf: 'stretch',
     flexDirection: 'row',
     marginHorizontal: 15,
   },
@@ -22,8 +21,7 @@ export default StyleSheet.create({
   },
   inputContainerFlex: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     marginBottom: 10,
   },
   inputTitle: {
