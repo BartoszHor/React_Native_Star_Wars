@@ -58,13 +58,25 @@ export default class CharactersStore extends BaseStore {
       const {
         data: { count, next, results: characters },
       } = yield RestClient.fetchCharacters(this.nextCharactersUrl || url);
+      const charactersWithHomeworld = [];
+      for (const character of characters) {
+        const { data: homeworld } = yield RestClient.fetchPlanetInfo(
+          character.homeworld,
+        );
+        const characterWithHomewrold = {
+          ...character,
+          planet: homeworld,
+        };
+        charactersWithHomeworld.push(characterWithHomewrold);
+      }
+
       if (next === null) {
-        this.characters = [...this.characters, ...characters];
+        this.characters = [...this.characters, ...charactersWithHomeworld];
         return;
       }
       this.nextCharactersUrl = next;
       this.totalCharactersCount = count;
-      this.characters = [...this.characters, ...characters];
+      this.characters = [...this.characters, ...charactersWithHomeworld];
     } catch (error) {
       handleError({ error });
     }
@@ -186,6 +198,17 @@ export default class CharactersStore extends BaseStore {
       this.charactersScreenSearchBarText.length > 0 &&
       navigationStore.currentRouteName === 'Characters'
     );
+  }
+
+  @computed
+  get planets(): Array<string> {
+    const homweorlds: Array<string> = [];
+    this.characters.map((item) => {
+      if (homweorlds.indexOf(item.planet.name) === -1) {
+        homweorlds.push(item.planet.name);
+      }
+    });
+    return homweorlds.sort();
   }
 
   @computed

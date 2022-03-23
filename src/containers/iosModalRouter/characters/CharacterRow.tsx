@@ -47,8 +47,8 @@ export default observer(({ item: character, index: characterIndex }: Props) => {
             {character.name.split(' ').splice(0, 2).join(' ')}
           </Text>
           <Text style={CharactersListStyles.characterName}>
-            {Localizable.t('charactersList.height')}
-            {character.height}
+            {Localizable.t('charactersList.planet')}
+            {character.planet.name}
           </Text>
         </View>
         <View>
