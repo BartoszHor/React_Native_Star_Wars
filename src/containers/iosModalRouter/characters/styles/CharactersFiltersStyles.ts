@@ -28,4 +28,9 @@ export default StyleSheet.create({
     marginTop: 50,
     marginBottom: 20,
   },
+  listHeaderStyles: {
+    color: 'white',
+    fontSize: 16,
+    paddingHorizontal: 5,
+  },
 });

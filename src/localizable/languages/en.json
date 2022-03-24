@@ -24,7 +24,8 @@
     "remove": "Remove",
     "population": "Population: ",
     "climate": "Climate: ",
-    "noCharacters": "There are no characters maching criteria"
+    "noCharacters": "There are no characters maching criteria",
+    "planetFilterHeader": "Filter out planets"
   },
   "alerts": {
     "ok": "Ok",

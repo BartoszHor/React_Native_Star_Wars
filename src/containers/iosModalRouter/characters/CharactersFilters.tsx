@@ -1,11 +1,12 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { View, Image, TouchableOpacity, FlatList } from 'react-native';
+import { View, Image, TouchableOpacity, FlatList, Text } from 'react-native';
 import { useStores } from '../../../App';
 import CharactersFiltersStyles from '../characters/styles/CharactersFiltersStyles';
 import Modal from '../../../components/modals/Modal';
 import CharactersFiltersRow from '../characters/CharactersFiltersRow';
 import Images from '../../../utils/Images';
+import { Localizable } from '../../../../packages/i18n';
 
 const renderItem = ({ item, index }: { item: string; index: number }) => (
   <CharactersFiltersRow item={item} index={index} />
@@ -41,6 +42,12 @@ export default observer(() => {
         </TouchableOpacity>
         <View style={CharactersFiltersStyles.listContainer}>
           <FlatList
+            ListHeaderComponent={
+              <Text style={CharactersFiltersStyles.listHeaderStyles}>
+                {Localizable.t('charactersList.planetFilterHeader')}
+              </Text>
+            }
+            bounces={false}
             initialNumToRender={charactersStore.planets.length}
             keyExtractor={(planet) => planet}
             showsVerticalScrollIndicator={false}
