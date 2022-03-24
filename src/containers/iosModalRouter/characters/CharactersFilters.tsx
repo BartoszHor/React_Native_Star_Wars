@@ -41,13 +41,10 @@ export default observer(() => {
           />
         </TouchableOpacity>
         <View style={CharactersFiltersStyles.listContainer}>
+          <Text style={CharactersFiltersStyles.listHeaderStyles}>
+            {Localizable.t('charactersList.planetFilterHeader')}
+          </Text>
           <FlatList
-            ListHeaderComponent={
-              <Text style={CharactersFiltersStyles.listHeaderStyles}>
-                {Localizable.t('charactersList.planetFilterHeader')}
-              </Text>
-            }
-            bounces={false}
             initialNumToRender={charactersStore.planets.length}
             keyExtractor={(planet) => planet}
             showsVerticalScrollIndicator={false}
