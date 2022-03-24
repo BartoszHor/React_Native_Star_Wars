@@ -28,6 +28,12 @@ export default class CharactersStore extends BaseStore {
   @observable
   charactersScreenSearchBarText = '';
 
+  @observable
+  filtersVisable = false;
+
+  @observable
+  excludedPlanets: Array<string> = [];
+
   @action
   setCharactersScreenSearchBarText = (text: string) => {
     this.charactersScreenSearchBarText = text;
@@ -36,6 +42,16 @@ export default class CharactersStore extends BaseStore {
   @action
   setCharacter = (character: any) => {
     this.character = character;
+  };
+
+  @action
+  setFiltersVisable = () => {
+    this.filtersVisable = true;
+  };
+
+  @action
+  setFiltersInvisable = () => {
+    this.filtersVisable = false;
   };
 
   @action
@@ -48,6 +64,16 @@ export default class CharactersStore extends BaseStore {
     this.nextCharactersUrl = '';
     this.characters = [];
     this.totalCharactersCount = 0;
+  };
+
+  @action
+  onExcludePlanetClick = (item: any) => {
+    const i = this.excludedPlanets.indexOf(item);
+    if (i !== -1) {
+      this.excludedPlanets.splice(i, 1);
+    } else {
+      this.excludedPlanets.push(item);
+    }
   };
 
   getCharacters = flow(function* (this: CharactersStore, url: string) {
@@ -201,22 +227,30 @@ export default class CharactersStore extends BaseStore {
   }
 
   @computed
-  get planets(): Array<string> {
-    const homweorlds: Array<string> = [];
-    this.characters.map((item) => {
-      if (homweorlds.indexOf(item.planet.name) === -1) {
-        homweorlds.push(item.planet.name);
-      }
-    });
-    return homweorlds.sort();
-  }
-
-  @computed
   get filteredCharacters(): Array<any> {
     return this.characters.filter((character) =>
       character.name
         .toLowerCase()
         .includes(this.charactersScreenSearchBarText.toLowerCase()),
     );
+  }
+
+  @computed
+  get planets(): Array<string> {
+    const homeworlds: Array<string> = [];
+    this.filteredCharacters.map((item) => {
+      if (homeworlds.indexOf(item.planet.name) === -1) {
+        homeworlds.push(item.planet.name);
+      }
+    });
+    return homeworlds.sort();
+  }
+
+  @computed
+  get charactersWithFilteredPlanets(): Array<any> {
+    const charactersWithFilteredPlanets = this.filteredCharacters.filter(
+      (item) => !this.excludedPlanets.includes(item.planet.name),
+    );
+    return charactersWithFilteredPlanets;
   }
 }

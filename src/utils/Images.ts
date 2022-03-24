@@ -12,6 +12,9 @@ const Images = {
   close: {
     arrowDown: require('../images/landing/arrowDown.png'),
   },
+  filters: {
+    filter: require('../images/landing/filter.png'),
+  },
 };
 
 export default Images;

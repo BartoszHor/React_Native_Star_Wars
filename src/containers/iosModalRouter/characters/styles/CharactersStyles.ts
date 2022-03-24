@@ -22,13 +22,19 @@ export default StyleSheet.create({
     textAlignVertical: 'center',
     borderColor: 'white',
     opacity: 0.5,
-    height: 28,
+    height: 35,
     paddingHorizontal: 5,
+    flex: 4,
   },
   arrowDown: {
     height: 40,
     tintColor: Colors.white,
     alignSelf: 'center',
+  },
+  filter: {
+    height: 35,
+    alignSelf: 'center',
+    width: 40,
   },
   characterContainer: {
     marginHorizontal: 10,

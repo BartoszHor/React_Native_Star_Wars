@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
 import Images from '../../../utils/Images';
 import CharactersListStyles from '../characters/styles/CharactersStyles';
@@ -32,6 +33,7 @@ export default observer(
           getCharacters,
           resetCharactersStore,
           setCharactersScreenSearchBarText,
+          setFiltersVisable,
         },
       },
     } = useStores();
@@ -56,13 +58,24 @@ export default observer(
             />
             {screen === 'Characters' ? (
               <>
-                <TextInput
-                  onChangeText={setCharactersScreenSearchBarText}
-                  value={charactersStore.charactersScreenSearchBarText}
-                  style={CharactersListStyles.searchBar}
-                  placeholder={'Search by name'}
-                  placeholderTextColor={'white'}
-                />
+                <View style={{ flexDirection: 'row' }}>
+                  <TextInput
+                    onChangeText={setCharactersScreenSearchBarText}
+                    value={charactersStore.charactersScreenSearchBarText}
+                    style={CharactersListStyles.searchBar}
+                    placeholder={'Search by name'}
+                    placeholderTextColor={'white'}
+                  />
+                  <TouchableOpacity
+                    onPress={setFiltersVisable}
+                    style={{ flex: 1 }}>
+                    <Image
+                      source={Images.filters.filter}
+                      style={CharactersListStyles.filter}
+                      resizeMode="contain"
+                    />
+                  </TouchableOpacity>
+                </View>
                 <FlatList
                   style={CharactersListStyles.charactersListContainer}
                   data={charactersStore.filteredCharacters}
