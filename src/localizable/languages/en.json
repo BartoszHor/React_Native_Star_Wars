@@ -23,7 +23,8 @@
     "added": "Added to favs",
     "remove": "Remove",
     "population": "Population: ",
-    "climate": "Climate: "
+    "climate": "Climate: ",
+    "noCharacters": "There are no characters maching criteria"
   },
   "alerts": {
     "ok": "Ok",

@@ -26,5 +26,6 @@ export default StyleSheet.create({
   listContainer: {
     flex: 1,
     marginTop: 50,
+    marginBottom: 20,
   },
 });

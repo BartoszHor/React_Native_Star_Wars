@@ -8,12 +8,15 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  Text,
 } from 'react-native';
 import Images from '../../../utils/Images';
 import CharactersListStyles from '../characters/styles/CharactersStyles';
 import { useStores } from '../../../App';
 import CharacterRowComponent from './CharacterRow';
 import CharactersListFooter from './CharactersListFooter';
+import Loader from '../../../components/loader/Loader';
+import { Localizable } from '../../../../packages/i18n';
 
 const renderItem = ({ item, index }: { item: any; index: number }) => (
   <CharacterRowComponent item={item} index={index} />
@@ -66,32 +69,42 @@ export default observer(
                     placeholder={'Search by name'}
                     placeholderTextColor={'white'}
                   />
-                  <TouchableOpacity
-                    onPress={setFiltersVisable}
-                    style={{ flex: 1 }}>
-                    <Image
-                      source={Images.filters.filter}
-                      style={CharactersListStyles.filter}
-                      resizeMode="contain"
-                    />
-                  </TouchableOpacity>
+                  {charactersStore.characterLoading ? (
+                    <Loader style={{ flex: 1 }} listView />
+                  ) : (
+                    <TouchableOpacity
+                      onPress={setFiltersVisable}
+                      style={{ flex: 1 }}>
+                      <Image
+                        source={Images.filters.filter}
+                        style={CharactersListStyles.filter}
+                        resizeMode="contain"
+                      />
+                    </TouchableOpacity>
+                  )}
                 </View>
-                <FlatList
-                  style={CharactersListStyles.charactersListContainer}
-                  data={charactersStore.charactersWithFilteredPlanets}
-                  renderItem={renderItem}
-                  onEndReachedThreshold={0.7}
-                  onEndReached={() =>
-                    charactersStore.shouldFetachMoreCharacters &&
-                    charactersStore.excludedPlanets.length === 0 &&
-                    getCharacters(charactersStore.nextCharactersUrl)
-                  }
-                  ListFooterComponent={
-                    charactersStore.excludedPlanets.length === 0 ? (
-                      <CharactersListFooter />
-                    ) : null
-                  }
-                />
+                {!!charactersStore.charactersWithFilteredPlanets.length ? (
+                  <FlatList
+                    style={CharactersListStyles.charactersListContainer}
+                    data={charactersStore.charactersWithFilteredPlanets}
+                    renderItem={renderItem}
+                    onEndReachedThreshold={0.7}
+                    onEndReached={() =>
+                      charactersStore.shouldFetachMoreCharacters &&
+                      charactersStore.excludedPlanets.length === 0 &&
+                      getCharacters(charactersStore.nextCharactersUrl)
+                    }
+                    ListFooterComponent={
+                      charactersStore.excludedPlanets.length === 0 ? (
+                        <CharactersListFooter />
+                      ) : null
+                    }
+                  />
+                ) : (
+                  <Text style={CharactersListStyles.noDataText}>
+                    {Localizable.t('charactersList.noCharacters')}
+                  </Text>
+                )}
               </>
             ) : (
               <ScrollView

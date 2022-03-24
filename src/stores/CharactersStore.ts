@@ -37,6 +37,9 @@ export default class CharactersStore extends BaseStore {
   @observable
   excludedPlanets: Array<string> = [];
 
+  @observable
+  characterLoading: boolean | null = null;
+
   @action
   setCharactersScreenSearchBarText = (text: string) => {
     this.charactersScreenSearchBarText = text;
@@ -80,6 +83,16 @@ export default class CharactersStore extends BaseStore {
   };
 
   @action
+  setCharactersLoading = () => {
+    this.characterLoading = true;
+  };
+
+  @action
+  hideCharactersLoading = () => {
+    this.characterLoading = false;
+  };
+
+  @action
   resetPlanets = () => {
     this.planets = [];
     this.excludedPlanets = [];
@@ -89,6 +102,7 @@ export default class CharactersStore extends BaseStore {
     const {
       alertStore: { handleError },
     } = this.rootStore.stores;
+    this.setCharactersLoading();
     try {
       const {
         data: { count, next, results: characters },
@@ -117,6 +131,8 @@ export default class CharactersStore extends BaseStore {
       this.characters = [...this.characters, ...charactersWithHomeworld];
     } catch (error) {
       handleError({ error });
+    } finally {
+      this.hideCharactersLoading();
     }
   }).bind(this);
 

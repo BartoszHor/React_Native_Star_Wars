@@ -8,7 +8,7 @@ export default StyleSheet.create({
   },
   charactersListContainer: {
     backgroundColor: 'transparent',
-    marginBottom: 20,
+    marginBottom: 60,
     borderTopColor: Colors.white,
     borderTopWidth: 0.4,
   },
@@ -71,5 +71,10 @@ export default StyleSheet.create({
   buttonsContainer: {
     justifyContent: 'center',
     flex: 1,
+  },
+  noDataText: {
+    color: 'white',
+    fontSize: 16,
+    alignSelf: 'center',
   },
 });
