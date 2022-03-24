@@ -78,14 +78,19 @@ export default observer(
                 </View>
                 <FlatList
                   style={CharactersListStyles.charactersListContainer}
-                  data={charactersStore.filteredCharacters}
+                  data={charactersStore.charactersWithFilteredPlanets}
                   renderItem={renderItem}
                   onEndReachedThreshold={0.7}
                   onEndReached={() =>
                     charactersStore.shouldFetachMoreCharacters &&
+                    charactersStore.excludedPlanets.length === 0 &&
                     getCharacters(charactersStore.nextCharactersUrl)
                   }
-                  ListFooterComponent={<CharactersListFooter />}
+                  ListFooterComponent={
+                    charactersStore.excludedPlanets.length === 0 ? (
+                      <CharactersListFooter />
+                    ) : null
+                  }
                 />
               </>
             ) : (

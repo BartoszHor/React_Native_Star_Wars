@@ -41,9 +41,10 @@ export default observer(() => {
     },
   } = useStores();
 
-  const characterIndex = charactersStore.filteredCharacters.findIndex(
-    ({ name }) => name === charactersStore?.character?.name,
-  );
+  const characterIndex =
+    charactersStore.charactersWithFilteredPlanets.findIndex(
+      ({ name }) => name === charactersStore?.character?.name,
+    );
   const characterInFavorites = favoritesStore.favoriteCharacters.some(
     ({ name }) => name === charactersStore?.character?.name,
   );

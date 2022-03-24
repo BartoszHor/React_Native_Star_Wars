@@ -16,7 +16,7 @@ export default class FavoritesStore
   @action
   addToFavorites = (index: number) => {
     const { charactersStore } = this.rootStore.stores;
-    const character = charactersStore.filteredCharacters[index];
+    const character = charactersStore.charactersWithFilteredPlanets[index];
     if (!this.favoriteCharacters.some(({ name }) => name === character.name)) {
       this.favoriteCharacters.unshift(character);
     }

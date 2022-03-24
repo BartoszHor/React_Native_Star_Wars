@@ -41,6 +41,8 @@ export default observer(() => {
         </TouchableOpacity>
         <View style={CharactersFiltersStyles.listContainer}>
           <FlatList
+            initialNumToRender={charactersStore.planets.length}
+            keyExtractor={(planet) => planet}
             showsVerticalScrollIndicator={false}
             data={charactersStore.planets}
             renderItem={renderItem}

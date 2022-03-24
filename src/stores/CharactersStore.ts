@@ -17,6 +17,9 @@ export default class CharactersStore extends BaseStore {
   characters: Array<any> = [];
 
   @observable
+  planets: Array<string> = [];
+
+  @observable
   character: any | null = null;
 
   @observable
@@ -67,13 +70,19 @@ export default class CharactersStore extends BaseStore {
   };
 
   @action
-  onExcludePlanetClick = (item: any) => {
+  onPlanetFilterClick = (item: any) => {
     const i = this.excludedPlanets.indexOf(item);
     if (i !== -1) {
       this.excludedPlanets.splice(i, 1);
     } else {
       this.excludedPlanets.push(item);
     }
+  };
+
+  @action
+  resetPlanets = () => {
+    this.planets = [];
+    this.excludedPlanets = [];
   };
 
   getCharacters = flow(function* (this: CharactersStore, url: string) {
@@ -94,6 +103,9 @@ export default class CharactersStore extends BaseStore {
           planet: homeworld,
         };
         charactersWithHomeworld.push(characterWithHomewrold);
+        if (this.planets.indexOf(characterWithHomewrold.planet.name) === -1) {
+          this.planets.push(characterWithHomewrold.planet.name);
+        }
       }
 
       if (next === null) {
@@ -148,7 +160,7 @@ export default class CharactersStore extends BaseStore {
       {
         text: Localizable.t('charactersList.details'),
         handlePress: (index: number) => {
-          this.setCharacter(this.filteredCharacters[index]);
+          this.setCharacter(this.charactersWithFilteredPlanets[index]);
           setModalVisable();
         },
         characterButton: true,
@@ -233,17 +245,6 @@ export default class CharactersStore extends BaseStore {
         .toLowerCase()
         .includes(this.charactersScreenSearchBarText.toLowerCase()),
     );
-  }
-
-  @computed
-  get planets(): Array<string> {
-    const homeworlds: Array<string> = [];
-    this.filteredCharacters.map((item) => {
-      if (homeworlds.indexOf(item.planet.name) === -1) {
-        homeworlds.push(item.planet.name);
-      }
-    });
-    return homeworlds.sort();
   }
 
   @computed

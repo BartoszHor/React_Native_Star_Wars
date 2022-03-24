@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { View, ImageBackground } from 'react-native';
 import Images from '../../../utils/Images';
@@ -18,8 +18,19 @@ const renderButton = (
 
 export default observer(() => {
   const {
-    stores: { navigationStore, splashScreenStore, appStore },
+    stores: {
+      navigationStore,
+      splashScreenStore,
+      appStore,
+      charactersStore: { resetPlanets },
+    },
   } = useStores();
+
+  useEffect(() => {
+    if (navigationStore.previousRouteName === 'Characters') {
+      resetPlanets();
+    }
+  }, [navigationStore.currentRouteName]);
 
   return (
     <View style={MainViewStyles.container}>

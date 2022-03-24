@@ -8,7 +8,7 @@ import CharactersFiltersRowStyles from './styles/CharactersFiltersRowStyles';
 export default observer(({ item, index }: { item: string; index: number }) => {
   const {
     stores: {
-      charactersStore: { onExcludePlanetClick },
+      charactersStore: { onPlanetFilterClick },
       charactersStore,
     },
   } = useStores();
@@ -17,7 +17,7 @@ export default observer(({ item, index }: { item: string; index: number }) => {
   );
   return (
     <TouchableOpacity
-      onPress={() => onExcludePlanetClick(item)}
+      onPress={() => onPlanetFilterClick(item)}
       key={index}
       style={CharactersFiltersRowStyles.container}>
       <Text style={CharactersFiltersRowStyles.planet}>{item}</Text>
